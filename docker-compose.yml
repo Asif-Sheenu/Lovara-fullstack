@@ -1,0 +1,62 @@
+services:
+
+  django:
+    build: ./backend_django/Backend_lovara
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend_django/Backend_lovara:/app
+    depends_on:
+      - db
+      - fastapi
+      - redis
+    command: daphne Backend_lovara.asgi:application -b 0.0.0.0 -p 8000
+
+    env_file:
+      - .env 
+    environment:
+      DB_NAME: lovara_db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: db
+      DB_PORT: 5432
+
+      EMAIL_HOST_USER: ${EMAIL_HOST_USER}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+
+  fastapi:
+    build: ./fastapi_service
+    ports:
+      - "8001:8001"
+
+  react:
+    build:
+      context: ./lovara_UI/lovara_Ui
+    ports:
+      - "5173:5173"
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: lovara_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data    
+
+  redis:
+    image: redis:7
+    container_name: lovara-redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
