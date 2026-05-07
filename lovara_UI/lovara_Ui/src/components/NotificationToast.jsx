@@ -41,7 +41,7 @@ export default function NotificationProvider({ children, wsToken }) {
       const token = localStorage.getItem("access") || localStorage.getItem("token");
       if (!token || token === "null") return;
 
-      const socket = new WebSocket(`ws://localhost:8000/ws/notifications/?token=${token}`);
+      const socket = new WebSocket(`ws://13.234.111.32:8000/ws/notifications/?token=${token}`);
       wsRef.current = socket;
 
       socket.onmessage = (e) => {

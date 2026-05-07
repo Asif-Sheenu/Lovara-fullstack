@@ -1,9 +1,39 @@
+# Python
 __pycache__/
 *.pyc
+
+# Env
 .env
-node_modules/
+.env.*
+*.env
 venv/
+
+# Node
+node_modules/
 dist/
 build/
+
+# Logs
 *.log
+
+# DB
 db.sqlite3
+
+# ML Models
+*.pkl
+*.h5
+*.pt
+*.joblib
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/

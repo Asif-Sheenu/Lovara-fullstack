@@ -12,7 +12,7 @@ export function useNotifications() {
         const token = localStorage.getItem("access") || localStorage.getItem("token");
         if (!token || token === "null") return;
 
-        ws.current = new WebSocket(`ws://localhost:8000/ws/notifications/?token=${token}`);
+        ws.current = new WebSocket(`ws://13.234.111.32:8000/ws/notifications/?token=${token}`);
 
         ws.current.onopen = () => console.log("WS connected");
 

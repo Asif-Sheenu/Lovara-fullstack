@@ -23,14 +23,13 @@ export default function ChatRoom({ roomId, currentUser }) {
       if (unmounted) return;
       if (!token || token === "null") return;
 
-      const socket = new WebSocket(`ws://localhost:8000/ws/chat/${roomId}/?token=${token}`);
+      const socket = new WebSocket(`ws://13.234.111.32:8000/ws/chat/${roomId}/?token=${token}`);
       ws.current = socket;
 
       socket.onopen = () => {
         if (unmounted) { socket.close(); return; }
         console.log(`✅ Chat connected to room ${roomId}`);
         setConnected(true);
-        // ✅ Clear messages so history loads fresh from server
         setMessages([]);
       };
 
